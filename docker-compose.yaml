@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+      - /usr/share/zoneinfo/America/Santiago:/etc/localtime
+    networks:
+      - myapp
+    ports:
+      - 27017:27017
+  app:
+    build: .
+    restart: always
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongo
+    networks:
+      - myapp
+    volumes:
+      - /usr/share/zoneinfo/America/Santiago:/etc/localtime
+networks:
+  myapp:
+    external: true
+volumes:
+  mongo_data:

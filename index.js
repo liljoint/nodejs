@@ -4,10 +4,10 @@ const mongoConnect = require("mongo");
 
 const app = express();
 
-const port = process.env.PORT || 3001;
+const { PORT, MONGO_URI } = require("config");
 
 const car = require("routes/car.routes");
 app.use(express.json());
 app.use("/car", car);
-app.listen(port, () => console.log("Escuchando Puerto: " + port));
-mongoConnect();
+app.listen(PORT, () => console.log("Escuchando Puerto: " + PORT));
+mongoConnect(MONGO_URI);
